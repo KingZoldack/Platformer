@@ -8,6 +8,9 @@ public class MovingPlatform : MonoBehaviour
     Transform targetA, targetB;
 
     [SerializeField]
+    Transform _playerObject;
+
+    [SerializeField]
     float _speed = 2f;
 
     bool _switchTargets = false;
@@ -18,7 +21,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!_switchTargets)
         {
@@ -38,6 +41,22 @@ public class MovingPlatform : MonoBehaviour
         else if (transform.position == targetA.position)
         {
             _switchTargets = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.transform.parent = this.transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.transform.parent = null;
         }
     }
 }

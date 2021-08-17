@@ -7,7 +7,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI _coinText;
+    TextMeshProUGUI _coinText, _livesText;
 
     Coins _gameCoins;
     Player _player;
@@ -28,5 +28,10 @@ public class UIManager : MonoBehaviour
     public void DisplayCoins(int coins)
     {
         _coinText.text = "Coins: " + coins;
+    }
+
+    public void DisplayLives(int lives)
+    {
+        _livesText.text = "Lives: " + lives; 
     }
 }

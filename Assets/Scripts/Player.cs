@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,13 +17,14 @@ public class Player : MonoBehaviour
     UIManager uiManager;
 
     [SerializeField]
-    int coins;
+    int coins, _lives = 3;
 
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
+        uiManager.DisplayLives(_lives);
     }
 
     // Update is called once per frame
@@ -76,5 +78,15 @@ public class Player : MonoBehaviour
     {
         coins++;
         uiManager.DisplayCoins(coins);
+    }
+
+    public void LoseLife()
+    {
+        _lives--;
+        uiManager.DisplayLives(_lives);
+        if (_lives <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
